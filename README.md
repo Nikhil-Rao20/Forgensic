@@ -203,13 +203,14 @@ OCR Token Boxes
   → Z > τ_large OR Z < τ_tight? → Yes → Flag Irregular Spacing
 ```
 
-**Anomaly Criteria (three checks per gap):**
+### **Anomaly Criteria (three checks per gap)**
 
 | Check | Condition | Catches |
 |---|---|---|
-| Large Gap | $Z > \tau_{\text{large}}$ AND $g > \tau_{\text{abs}}$ AND $g > \tau_{\text{med}} \cdot \tilde{g}_{\text{line}}$ | Inserted whitespace |
-| Tight Gap | $Z < \tau_{\text{tight}}$ AND $\tilde{g}_{\text{line}} > 3$ | Compressed text |
-| Extreme Gap | $g > \tau_{\text{single\_abs}}$ AND $g > \tau_{\text{single\_med}} \cdot \tilde{g}_{\text{line}}$ | Single huge anomaly |
+| Large Gap | $Z > \tau_{large}$ AND $g > \tau_{abs}$ AND $g > \tau_{med} \cdot \tilde{g}_{line}$ | Inserted whitespace |
+| Tight Gap | $Z < \tau_{tight}$ AND $\tilde{g}_{line} > 3$ | Compressed text |
+| Extreme Gap | $g > \tau_{singleabs}$ AND $g > \tau_{singlemed} \cdot \tilde{g}_{line}$ | Single huge anomaly |
+
 
 ---
 
