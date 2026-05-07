@@ -1,4 +1,4 @@
-export const API_BASE_URL = "http://127.0.0.1:8000";
+export const API_BASE_URL = "https://forgensic.onrender.com";
 
 export const FIREBASE_CONFIG = {
   apiKey: "AIzaSyCx-dnh8akgXz0CdvJhQB2jJA_c_5dfL4A",
