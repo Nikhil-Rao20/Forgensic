@@ -9,6 +9,7 @@ CORS_ORIGINS = [origin.strip() for origin in os.getenv("CORS_ORIGINS", "*").spli
 FIREBASE_CREDENTIALS = os.getenv("FIREBASE_CREDENTIALS")
 FIREBASE_STORAGE_BUCKET = os.getenv("FIREBASE_STORAGE_BUCKET")
 AUTH_REQUIRED = os.getenv("AUTH_REQUIRED", "true").lower() == "true"
+OCR_ENABLED = os.getenv("OCR_ENABLED", "true").lower() == "true"
 
 PIPELINE_PRESET = os.getenv("PIPELINE_PRESET", "super_loose")
 PIPELINE_VERSION = os.getenv("PIPELINE_VERSION", "ps3-cv-1.0.0")

@@ -38,6 +38,17 @@ try:
 except ImportError:
     pytesseract = None
 
+OCR_ENABLED = True
+
+
+def set_ocr_enabled(enabled: bool) -> None:
+    global OCR_ENABLED
+    OCR_ENABLED = bool(enabled)
+
+
+def is_ocr_enabled() -> bool:
+    return OCR_ENABLED
+
 
 CATEGORY_IDS = {
     "C1": "Copy-paste within the same document",
@@ -306,7 +317,7 @@ def _component_stats(mask: np.ndarray, min_area: int = 200) -> List[Dict[str, An
 
 
 def _ocr_token_boxes(gray: np.ndarray) -> List[Tuple[int, int, int, int]]:
-    if pytesseract is None or Image is None:
+    if not OCR_ENABLED or pytesseract is None or Image is None:
         return []
     try:
         data = pytesseract.image_to_data(Image.fromarray(gray), output_type=pytesseract.Output.DICT)
@@ -423,6 +434,8 @@ def _jpeg_block_bonus(page: DocumentPage, gray: np.ndarray, box: Tuple[int, int,
 
 
 def _ocr_similarity(gray: np.ndarray, box_a: Tuple[int, int, int, int], box_b: Tuple[int, int, int, int]) -> float:
+    if not OCR_ENABLED:
+        return 1.0
     if pytesseract is None or Image is None:
         return 0.0
 
@@ -2170,9 +2183,16 @@ def export_all_outputs(results: List[PageAnalysisResult], output_dir: Path, anno
 # PIPELINE RUNNER
 # =========================
 
-def run_pipeline(input_path: Path, work_dir: Path, preset: Optional[str] = None) -> Dict[str, Any]:
+def run_pipeline(
+    input_path: Path,
+    work_dir: Path,
+    preset: Optional[str] = None,
+    enable_ocr: Optional[bool] = None,
+) -> Dict[str, Any]:
     if preset:
         set_tuning_preset(preset)
+    if enable_ocr is not None:
+        set_ocr_enabled(enable_ocr)
 
     input_dir = work_dir / "input"
     output_dir = work_dir / "output"

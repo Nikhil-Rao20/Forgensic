@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Optional
 
-from fastapi import Depends, FastAPI, File, HTTPException, Request, UploadFile
+from fastapi import Depends, FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 
@@ -17,6 +17,7 @@ from .config import (
     DATA_DIR,
     JOB_EXECUTOR_WORKERS,
     MAX_UPLOAD_BYTES,
+    OCR_ENABLED,
     PIPELINE_PRESET,
     PIPELINE_VERSION,
 )
@@ -183,7 +184,7 @@ def _safe_unlink(path: Path) -> None:
         return
 
 
-def _process_job(job_id: str, user_id: str, file_path: Path, preset: str) -> None:
+def _process_job(job_id: str, user_id: str, file_path: Path, preset: str, ocr_enabled: bool) -> None:
     _write_job_state(job_id, {"status": "processing", "updated_at": _now_iso(), "progress": 0.1})
     job_dir = DATA_DIR / job_id
     cloudinary_enabled = init_cloudinary()
@@ -191,7 +192,7 @@ def _process_job(job_id: str, user_id: str, file_path: Path, preset: str) -> Non
 
     try:
         inference_start = perf_counter()
-        run_output = run_pipeline(file_path, job_dir, preset=preset)
+        run_output = run_pipeline(file_path, job_dir, preset=preset, enable_ocr=ocr_enabled)
         inference_seconds = perf_counter() - inference_start
         pages = run_output["pages"]
         results = run_output["results"]
@@ -279,7 +280,11 @@ async def health() -> Dict[str, Any]:
 
 
 @app.post("/jobs", response_model=JobCreateResponse)
-async def create_job(request: Request, file: UploadFile = File(...)) -> JobCreateResponse:
+async def create_job(
+    request: Request,
+    file: UploadFile = File(...),
+    ocr_enabled: Optional[bool] = Form(None),
+) -> JobCreateResponse:
     user = _require_user_info(request.headers.get("authorization"))
     user_id = user.get("uid")
     user_email = user.get("email")
@@ -293,6 +298,8 @@ async def create_job(request: Request, file: UploadFile = File(...)) -> JobCreat
     input_path = job_dir / "input" / file.filename
     size = _save_upload(file, input_path)
 
+    resolved_ocr = OCR_ENABLED if ocr_enabled is None else bool(ocr_enabled)
+
     _write_job_state(
         job_id,
         {
@@ -304,13 +311,14 @@ async def create_job(request: Request, file: UploadFile = File(...)) -> JobCreat
             "user_id": user_id,
             "user_email": user_email,
             "user_name": user_name,
+            "ocr_enabled": resolved_ocr,
             "created_at": _now_iso(),
             "updated_at": _now_iso(),
             "pipeline_version": PIPELINE_VERSION,
         },
     )
 
-    _executor.submit(_process_job, job_id, user_id, input_path, PIPELINE_PRESET)
+    _executor.submit(_process_job, job_id, user_id, input_path, PIPELINE_PRESET, resolved_ocr)
 
     return JobCreateResponse(job_id=job_id, status="queued", message="Job accepted")
 

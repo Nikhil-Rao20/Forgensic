@@ -69,6 +69,7 @@ const uploadName = $("upload-name");
 const uploadSize = $("upload-size");
 const uploadStatus = $("upload-status");
 const autoProcess = $("auto-process");
+const ocrToggle = $("ocr-toggle");
 const startBtn = $("start-btn");
 const progressBar = $("progress-bar");
 const progressLabel = $("progress-label");
@@ -813,6 +814,7 @@ async function startAnalysis() {
   const token = currentUser ? await currentUser.getIdToken() : null;
   const formData = new FormData();
   formData.append("file", selectedFile);
+  formData.append("ocr_enabled", ocrToggle?.checked ? "true" : "false");
 
   const res = await fetch(`${API_BASE_URL}/jobs`, {
     method: "POST",

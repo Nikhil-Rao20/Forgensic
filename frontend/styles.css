@@ -494,6 +494,11 @@ img {
   gap: 12px;
 }
 
+.toggle-row.toggle-row-compact {
+  margin-top: 8px;
+  justify-content: flex-start;
+}
+
 .toggle {
   display: flex;
   align-items: center;
