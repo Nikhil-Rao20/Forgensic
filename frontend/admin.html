@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Forgensic Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="admin">
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="app.html" aria-label="Forgensic home">
+          <div class="brand-mark">FG</div>
+          <div>
+            <div class="brand-name" id="brand-name">Forgensic</div>
+            <div class="brand-sub" id="brand-sub">Forgery meets forensic clarity</div>
+          </div>
+        </a>
+        <nav class="nav">
+          <a class="nav-link" data-page="dashboard" href="app.html">Dashboard</a>
+          <a class="nav-link" data-page="review" href="review.html">Review</a>
+          <a class="nav-link" data-page="history" href="history.html">History</a>
+          <a class="nav-link" data-page="insights" href="insights.html">Insights</a>
+          <a class="nav-link admin-only hidden" data-page="admin" href="admin.html">Admin</a>
+        </nav>
+        <div class="top-actions">
+          <button class="btn btn-ghost" id="admin-login-btn">Admin login</button>
+          <div class="user-chip hidden" id="user-chip">
+            <span class="user-dot"></span>
+            <span id="user-name">User</span>
+          </div>
+          <button class="btn btn-ghost hidden" id="top-logout-btn">Sign out</button>
+        </div>
+      </header>
+
+      <div class="mobile-topbar">
+        <a class="brand" href="app.html" aria-label="Forgensic home">
+          <div class="brand-mark">FG</div>
+          <div>
+            <div class="brand-name">Forgensic</div>
+            <div class="brand-sub">Forgery meets forensic clarity</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="banner hidden" id="signin-banner" role="status"></div>
+
+      <main class="main">
+        <section class="page-hero compact">
+          <div>
+            <div class="kicker">Admin console</div>
+            <h1>Monitor every user, upload, and review decision.</h1>
+            <p>Track system usage, class trends, and review behavior across the entire platform.</p>
+          </div>
+        </section>
+
+        <section class="admin-locked" id="admin-locked">
+          <div class="card">
+            <div class="card-title">Admin access required</div>
+            <p class="card-meta">Use the admin login button in the top bar to unlock system analytics.</p>
+          </div>
+        </section>
+
+        <section class="admin-grid hidden" id="admin-dashboard">
+          <div class="card">
+            <div class="card-title">Platform overview</div>
+            <div class="stats-grid" id="admin-kpis"></div>
+          </div>
+          <div class="card">
+            <div class="card-title">Class distribution</div>
+            <div class="legend" id="admin-class-summary"></div>
+          </div>
+          <div class="card admin-wide">
+            <div class="card-title">User activity</div>
+            <div class="admin-table" id="admin-users"></div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="desktop-footer">2026 . Made by Nikhileswara Rao Sulake</footer>
+
+      <nav class="bottom-nav">
+        <a class="bottom-link" data-page="dashboard" href="app.html">Home</a>
+        <a class="bottom-link" data-page="review" href="review.html">Review</a>
+        <a class="bottom-link" data-page="history" href="history.html">History</a>
+        <a class="bottom-link" data-page="insights" href="insights.html">Insights</a>
+      </nav>
+    </div>
+
+    <div class="modal hidden" id="admin-modal" role="dialog" aria-modal="true">
+      <div class="modal-card">
+        <div class="card-title">Admin access</div>
+        <p class="card-meta">Enter admin credentials to unlock monitoring tools.</p>
+        <label for="admin-username">Username</label>
+        <input type="text" id="admin-username" placeholder="admin" />
+        <label for="admin-password">Password</label>
+        <input type="password" id="admin-password" placeholder="password" />
+        <div class="modal-actions">
+          <button class="btn btn-primary" id="admin-submit">Enter admin</button>
+          <button class="btn btn-ghost" id="admin-cancel">Cancel</button>
+        </div>
+        <div class="modal-error" id="admin-error"></div>
+      </div>
+    </div>
+
+    <div class="toast hidden" id="toast" aria-live="polite"></div>
+
+    <script type="module" src="config.js"></script>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

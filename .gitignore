@@ -1,3 +1,5 @@
+plan.md
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
@@ -156,6 +158,10 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+
+# Firebase service account keys
+*firebase-adminsdk*.json
+forgensic-e3fb6-firebase-adminsdk-fbsvc-d4e2b99c36.json
 
 # Spyder project settings
 .spyderproject
