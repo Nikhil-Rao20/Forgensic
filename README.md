@@ -44,12 +44,35 @@ NHA PS3 Final Updated/
 
 ---
 
-### 🚀 How to Run
+### 🚀 How to Run the Code
 
 Change the input directory path to pointing towards the folder containing all the health reports in PDFs, JPEGs, JPGs formats.
 You can change the path using this variable in the second code cell: `INPUT_DIR`
 
 And just click run all button in the notebook, that's it. The code will take care of it, we also show the results processing using a TQDM bar for better visualization of when will the process will be completed.
+
+
+### 🌐 How to Run the Website Locally
+
+We will set the local API URL to 127.0.0.1 on 8000 port, we can do any toggle in the configs in the respective config files in frontend and backend. Now, open the powershell and to first start the backend from the repo root, run the below code:
+
+```
+cd .\backend\
+$env:DATA_DIR="$PWD\data"
+$env:CORS_ORIGINS="http://127.0.0.1:5500,http://localhost:5500"
+$env:AUTH_REQUIRED="false"
+$env:CLOUDINARY_ENABLED="false"
+uvicorn app.main:app --reload
+```
+
+To start the frontend from the repo root, run the below code in a new powershell:
+
+```
+cd .\frontend\
+python -m http.server 5500
+```
+
+Then you can open the http://127.0.0.1:5500/app.html to see the website, and run all the things properly. Mentioning that the code will run purely on your CPU.
 
 
 ---
