@@ -4,7 +4,11 @@
 <sup>1</sup> Rajiv Gandhi University of Knowledge Technologies, Nuzvid, Andhra Pradesh
 
 ---
-
+<!-- Side-by-side images from assets folder -->
+<div style="display:flex;gap:10px;align-items:flex-start;">
+  <img src="assets/img2.png" alt="Image 1" style="width:49%;height:auto;" />
+  <img src="assets/img1.png" alt="Image 2" style="width:49%;height:auto;" />
+</div>
 
 ### Internal Validation Score: **0.5315** &nbsp;·&nbsp; Leaderboard Position: **Top 3**
 
