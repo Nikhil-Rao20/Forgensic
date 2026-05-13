@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Forgensic E-Consent</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="consent">
+    <div class="consent">
+      <div class="consent-card">
+        <header class="consent-header">
+          <div class="brand brand-logos" aria-label="Forgensic home">
+            <div class="logo-row" aria-hidden="true">
+              <img class="logo-img logo-tanuh" src="logos/tanuh_logo.png" alt="" />
+              <img class="logo-img logo-moe" src="logos/MoE_Logo.svg" alt="" />
+              <img class="logo-img logo-iisc" src="logos/IISc_Logo.png" alt="" />
+            </div>
+            <div class="brand-text">
+              <div class="brand-name" id="brand-name">Forgensic</div>
+              <div class="brand-sub" id="brand-sub">Forgery meets forensic clarity</div>
+            </div>
+          </div>
+          <span class="badge ghost">E-Consent</span>
+        </header>
+
+        <section class="consent-intro">
+          <h1>Participant Information Sheet</h1>
+          <p class="lead">Please read the following information carefully before proceeding. You must accept this consent to enter the dashboard.</p>
+        </section>
+
+        <section class="consent-meta">
+          <p><strong>Study Title :</strong> AI enabled Breast Cancer Risk Prediction Tool</p>
+          <p><strong>Sponsor :</strong> TANUH Foundation</p>
+          <p><strong>IEC Approval :</strong> Ethics committee approval received from Clinicom vide letter no: 02434 dated 13-Jan-2026</p>
+        </section>
+
+        <section class="consent-body">
+          <div class="consent-section">
+            <h3>1) Invitation & Voluntary Participation</h3>
+            <p>You are invited to take part in a research study about breast cancer risk factors in the Indian population. Participation is entirely voluntary. You may decline to participate without any penalty or loss of benefits.</p>
+            <p><strong>Eligibility:</strong> You must be 18 years or older. If you are under 18, please do not proceed.</p>
+          </div>
+          <div class="consent-section">
+            <h3>2) Purpose of the Study</h3>
+            <p>We will analyze survey responses to understand breast cancer risk factors in India and to develop a research-only model that estimates 5-year and lifetime risk. This tool is under development, not for clinical use, and does not provide a medical diagnosis or treatment.</p>
+          </div>
+          <div class="consent-section">
+            <h3>3) What You Will Do</h3>
+            <p>Complete a one-time questionnaire on demographic and health-related factors. The estimated time is approximately 5-7 minutes. You may skip any question you are uncomfortable answering.</p>
+          </div>
+          <div class="consent-section">
+            <h3>4) Risks & Discomforts</h3>
+            <p>The risks are minimal and may include discomfort with personal questions. There is a small risk of a data breach, for which we apply the safeguards described in the "Data & Privacy" section below.</p>
+          </div>
+          <div class="consent-section">
+            <h3>5) Benefits</h3>
+            <p>There may be no direct benefit to you. The findings may improve the understanding of breast cancer risk factors in India and guide future research tools.</p>
+          </div>
+          <div class="consent-section">
+            <h3>6) Important: Research-Only; Not Medical Advice</h3>
+            <p>Any score or output from this tool is experimental and for research purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. This tool is not approved by CDSCO and is not a certified Software as a Medical Device (SaMD). For any health concerns, please consult a qualified physician.</p>
+          </div>
+          <div class="consent-section">
+            <h3>7) Data & Privacy (Anonymous Survey)</h3>
+            <p>We do not collect any personal identifiers (e.g., name, phone, email, precise address, national ID). Responses are recorded without any link to your identity. Because submissions are anonymous, once you submit your responses, they cannot be withdrawn or deleted, as we cannot identify which responses are yours.</p>
+            <p><strong>Technical logs:</strong> We configure systems to avoid storing IP addresses or device identifiers beyond transient processing. If minimal infrastructure logs are generated for security or performance, they are not linked to your responses and are deleted per institutional policy.</p>
+            <p><strong>Security:</strong> Data are stored on secure, access-controlled systems with reasonable technical and organizational measures, such as encryption and role-based access controls.</p>
+          </div>
+          <div class="consent-section">
+            <h3>8) Data Use, Sharing & Retention</h3>
+            <p><strong>Purpose limitation:</strong> Data will be used exclusively for academic research on breast cancer risk factors and model development/validation.</p>
+            <p><strong>Sharing:</strong> Only de-identified or aggregated datasets may be shared with research collaborators and academic partners for the same purpose. Publications will report aggregate results that do not identify individuals.</p>
+            <p><strong>Retention:</strong> Anonymous datasets may be retained as per institutional/IEC policy for reproducibility and audit.</p>
+          </div>
+          <div class="consent-section">
+            <h3>9) Costs & Compensation</h3>
+            <p>There is no cost to you for participating, and you will not be paid. No compensation is available for injury, as this is a minimal-risk, survey-only study.</p>
+          </div>
+          <div class="consent-section">
+            <h3>10) Contact Information</h3>
+            <p>If you wish to speak to someone independent of the study, you may contact the:</p>
+            <p><strong>Institutional Ethics Committee (IEC)</strong></p>
+            <p><strong>Name:</strong> Dr. S. Hema Priyadarshini, Secretary, IEC, TANUH</p>
+            <p><strong>Email:</strong> <a class="footer-link inline" href="mailto:secretary.iec@tanuh.ai" title="Email IEC">secretary.iec@tanuh.ai</a></p>
+            <p><strong>Phone#</strong> 080 - 2293 4106 / 2293 4107</p>
+          </div>
+        </section>
+
+        <form class="consent-actions" id="consent-form">
+          <label class="consent-check">
+            <input type="checkbox" id="consent-check" />
+            <span>By checking this box, you confirm that you are 18 years of age or older, that you have read and understood the Participant Information Sheet, and that the information you provide for this study is given voluntarily.</span>
+          </label>
+          <div class="consent-buttons">
+            <button class="btn btn-primary" id="consent-accept" type="submit" disabled>Accept &amp; Continue</button>
+            <a class="btn btn-ghost" href="index.html">Back</a>
+          </div>
+          <div class="card-meta" id="consent-status"></div>
+        </form>
+      </div>
+    </div>
+
+    <script type="module" src="config.js"></script>
+    <script type="module" src="consent.js"></script>
+  </body>
+</html>

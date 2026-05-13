@@ -4,7 +4,12 @@ import {
   APP_OPTIONS,
   APP_BRAND,
   ADMIN_CREDENTIALS,
-  CATEGORY_COLORS
+  CATEGORY_COLORS,
+  AUTH_ENABLED,
+  QUESTIONNAIRE_KEY,
+  QUESTIONNAIRE_REQUIRED,
+  CONSENT_KEY,
+  CONSENT_REQUIRED
 } from "./config.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
 import {
@@ -32,12 +37,26 @@ const $$ = (selector) => Array.from(document.querySelectorAll(selector));
 const firebaseConfigured = Object.values(FIREBASE_CONFIG || {}).every(
   (value) => typeof value === "string" && value.length > 0 && !value.startsWith("YOUR_")
 );
+const authEnabled = AUTH_ENABLED !== false;
+const firebaseEnabled = firebaseConfigured && authEnabled;
+const consentRequired = CONSENT_REQUIRED !== false;
+const consentDone = localStorage.getItem(CONSENT_KEY) === "true";
+const questionnaireRequired = QUESTIONNAIRE_REQUIRED !== false;
+const questionnaireDone = localStorage.getItem(QUESTIONNAIRE_KEY) === "true";
+
+if (consentRequired && !consentDone) {
+  window.location.href = "consent.html";
+}
+
+if (questionnaireRequired && !questionnaireDone) {
+  window.location.href = "questionnaire.html";
+}
 
 let firebaseApp = null;
 let auth = null;
 let db = null;
 
-if (firebaseConfigured) {
+if (firebaseEnabled) {
   firebaseApp = initializeApp(FIREBASE_CONFIG);
   auth = getAuth(firebaseApp);
   db = getFirestore(firebaseApp);
@@ -220,7 +239,7 @@ function setUserState(user) {
   if (userName && user) userName.textContent = user.displayName || user.email || "Customer";
 
   if (!user) {
-    if (firebaseConfigured) {
+    if (firebaseEnabled) {
       redirectToLanding("Please sign in to access Forgensic.");
       return;
     }
@@ -241,6 +260,35 @@ function setStatus(label, progress) {
   if (!progressLabel || !progressBar) return;
   progressLabel.textContent = label;
   progressBar.style.width = `${Math.max(0, Math.min(progress, 1)) * 100}%`;
+}
+
+function uploadWithProgress(formData, token, onProgress) {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", `${API_BASE_URL}/jobs`);
+    if (token) xhr.setRequestHeader("Authorization", `Bearer ${token}`);
+    xhr.upload.addEventListener("progress", (event) => {
+      if (!onProgress) return;
+      if (event.lengthComputable) {
+        onProgress(event.loaded / event.total);
+      } else {
+        onProgress(null);
+      }
+    });
+    xhr.addEventListener("load", () => {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        try {
+          resolve(JSON.parse(xhr.responseText));
+        } catch (err) {
+          reject(new Error("Invalid response"));
+        }
+        return;
+      }
+      reject(new Error(xhr.responseText || "Upload failed"));
+    });
+    xhr.addEventListener("error", () => reject(new Error("Upload failed")));
+    xhr.send(formData);
+  });
 }
 
 function setScanningState(active) {
@@ -698,6 +746,7 @@ async function pollJob(jobId) {
 
     if (data.status === "complete") {
       clearInterval(interval);
+      setStatus("Complete", 1);
       setScanningState(false);
       await loadResults(jobId);
     }
@@ -791,7 +840,7 @@ async function fetchJobResults(jobId, jobRecord = null) {
 }
 
 async function startAnalysis() {
-  if (!currentUser) {
+  if (!currentUser && authEnabled) {
     if (uploadStatus) uploadStatus.textContent = "Please sign in first";
     if (auth) {
       redirectToLanding("Please sign in first.");
@@ -811,24 +860,35 @@ async function startAnalysis() {
 
   setInferenceTime(null, null);
 
+  if (uploadStatus) uploadStatus.textContent = "Uploading...";
+  if (statusFoot) statusFoot.textContent = "Uploading file...";
+  setStatus("Uploading", 0.02);
+
   const token = currentUser ? await currentUser.getIdToken() : null;
   const formData = new FormData();
   formData.append("file", selectedFile);
   formData.append("ocr_enabled", ocrToggle?.checked ? "true" : "false");
 
-  const res = await fetch(`${API_BASE_URL}/jobs`, {
-    method: "POST",
-    headers: token ? { Authorization: `Bearer ${token}` } : {},
-    body: formData
-  });
-
-  if (!res.ok) {
+  let data;
+  try {
+    data = await uploadWithProgress(formData, token, (progress) => {
+      if (progress === null) {
+        setStatus("Uploading", 0.1);
+        return;
+      }
+      const percent = Math.round(progress * 100);
+      const scaled = Math.min(0.85, Math.max(0.05, progress * 0.85));
+      setStatus(`Uploading ${percent}%`, scaled);
+    });
+  } catch (err) {
     if (uploadStatus) uploadStatus.textContent = "Upload failed";
+    if (statusFoot) statusFoot.textContent = err?.message || "Upload failed";
+    setStatus("Upload failed", 0);
     return;
   }
-  const data = await res.json();
   activeJobId = data.job_id;
   if (uploadStatus) uploadStatus.textContent = "Processing started";
+  setStatus("Queued", 0.9);
   localStorage.setItem(LAST_JOB_KEY, activeJobId);
   setScanningState(true);
   pollJob(activeJobId);

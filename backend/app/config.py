@@ -7,6 +7,7 @@ MAX_UPLOAD_BYTES = int(os.getenv("MAX_UPLOAD_BYTES", str(10 * 1024 * 1024)))
 CORS_ORIGINS = [origin.strip() for origin in os.getenv("CORS_ORIGINS", "*").split(",") if origin.strip()]
 
 FIREBASE_CREDENTIALS = os.getenv("FIREBASE_CREDENTIALS")
+FIREBASE_CREDENTIALS_PATH = os.getenv("FIREBASE_CREDENTIALS_PATH")
 FIREBASE_STORAGE_BUCKET = os.getenv("FIREBASE_STORAGE_BUCKET")
 AUTH_REQUIRED = os.getenv("AUTH_REQUIRED", "true").lower() == "true"
 OCR_ENABLED = os.getenv("OCR_ENABLED", "true").lower() == "true"
@@ -19,5 +20,6 @@ SIGNED_URL_DAYS = int(os.getenv("SIGNED_URL_DAYS", "7"))
 CLOUDINARY_CLOUD_NAME = os.getenv("CLOUDINARY_CLOUD_NAME")
 CLOUDINARY_API_KEY = os.getenv("CLOUDINARY_API_KEY")
 CLOUDINARY_API_SECRET = os.getenv("CLOUDINARY_API_SECRET")
+CLOUDINARY_ENABLED = os.getenv("CLOUDINARY_ENABLED", "true").lower() == "true"
 CLOUDINARY_FOLDER = os.getenv("CLOUDINARY_FOLDER", "nha-docguard")
 CLOUDINARY_TTL_DAYS = int(os.getenv("CLOUDINARY_TTL_DAYS", "7"))

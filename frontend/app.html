@@ -6,15 +6,19 @@
     <title>Forgensic Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body data-page="dashboard">
     <div class="app-shell">
       <header class="topbar">
-        <a class="brand" href="app.html" aria-label="Forgensic home">
-          <div class="brand-mark">FG</div>
-          <div>
+        <a class="brand brand-logos" href="app.html" aria-label="Forgensic home">
+          <div class="logo-row" aria-hidden="true">
+            <img class="logo-img logo-tanuh" src="logos/tanuh_logo.png" alt="" />
+            <img class="logo-img logo-moe" src="logos/MoE_Logo.svg" alt="" />
+            <img class="logo-img logo-iisc" src="logos/IISc_Logo.png" alt="" />
+          </div>
+          <div class="brand-text">
             <div class="brand-name" id="brand-name">Forgensic</div>
             <div class="brand-sub" id="brand-sub">Forgery meets forensic clarity</div>
           </div>
@@ -24,6 +28,7 @@
           <a class="nav-link" data-page="review" href="review.html">Review</a>
           <a class="nav-link" data-page="history" href="history.html">History</a>
           <a class="nav-link" data-page="insights" href="insights.html">Insights</a>
+          <a class="nav-link" data-page="team" href="team.html">Team</a>
           <a class="nav-link admin-only hidden" data-page="admin" href="admin.html">Admin</a>
         </nav>
         <div class="top-actions">
@@ -37,9 +42,13 @@
       </header>
 
       <div class="mobile-topbar">
-        <a class="brand" href="app.html" aria-label="Forgensic home">
-          <div class="brand-mark">FG</div>
-          <div>
+        <a class="brand brand-logos" href="app.html" aria-label="Forgensic home">
+          <div class="logo-row" aria-hidden="true">
+            <img class="logo-img logo-tanuh" src="logos/tanuh_logo.png" alt="" />
+            <img class="logo-img logo-moe" src="logos/MoE_Logo.svg" alt="" />
+            <img class="logo-img logo-iisc" src="logos/IISc_Logo.png" alt="" />
+          </div>
+          <div class="brand-text">
             <div class="brand-name">Forgensic</div>
             <div class="brand-sub">Forgery meets forensic clarity</div>
           </div>
@@ -49,6 +58,14 @@
       <div class="banner hidden" id="signin-banner" role="status"></div>
 
       <main class="main">
+        <section class="page-hero compact">
+          <div>
+            <div class="kicker">Dashboard</div>
+            <h1>Document Forgery Detection Tool</h1>
+            <p class="lead">Research-only decision support for document integrity. Review all results with a human expert.</p>
+          </div>
+
+        </section>
         <section class="dashboard-grid primary">
           <div class="card upload-card">
             <div class="card-header">
@@ -111,6 +128,7 @@
               <div class="doc-silhouette" aria-hidden="true">
                 <span class="doc-corner" aria-hidden="true"></span>
               </div>
+              <img class="scan-logo" src="logos/tanuh_logo.png" alt="TANUH logo" />
               <div class="scan-overlay" aria-hidden="true"></div>
               <div class="viewer-empty" id="preview-empty">No results yet.</div>
               <img id="preview-image" alt="Document preview" />
@@ -129,13 +147,54 @@
         </section>
       </main>
 
-      <footer class="desktop-footer">2026 . Made by Nikhileswara Rao Sulake</footer>
+      <footer class="site-footer">
+        <div class="footer-inner">
+          <div class="footer-brand">
+            <img class="footer-logo" src="logos/tanuh_logo.png" alt="TANUH logo" />
+            <div class="footer-title">TANUH</div>
+            <div class="footer-subtitle">The AI Centre of Excellence in Healthcare</div>
+            <div class="footer-address">
+              <div>AI Centre of Excellence in Healthcare</div>
+              <div>Indian Institute of Science</div>
+              <div>Seventh Floor, TCS Smart-X Hub</div>
+              <div>Bengaluru, India - 560 012</div>
+            </div>
+            <div class="footer-contact">
+              <div>Email: <a class="footer-link inline" href="mailto:info@tanuh.ai" title="Email TANUH">info@tanuh.ai</a></div>
+              <div>Telephone: <a class="footer-link inline" href="tel:+918022934106" title="Call TANUH">(080) 2293 4106</a> | <a class="footer-link inline" href="tel:+918022934107" title="Call TANUH">(080) 2293 4107</a></div>
+            </div>
+            <div class="footer-copy">&copy; 2026 by TANUH</div>
+          </div>
+          <div class="footer-column">
+            <div class="footer-heading">Solutions</div>
+            <div class="footer-links">
+              <a class="footer-link" href="#" title="Breast Cancer Detection">Breast Cancer Detection</a>
+              <a class="footer-link" href="#" title="Oral Cancer Screening">Oral Cancer Screening</a>
+              <a class="footer-link" href="#" title="Diabetes Management">Diabetes Management</a>
+              <a class="footer-link" href="#" title="Retinal Disease">Retinal Disease</a>
+              <a class="footer-link" href="#" title="Mental Health">Mental Health</a>
+              <a class="footer-link" href="#" title="Renal Health">Renal Health</a>
+            </div>
+          </div>
+          <div class="footer-column">
+            <div class="footer-heading">Company</div>
+            <div class="footer-links">
+              <a class="footer-link" href="#" title="About">About</a>
+              <a class="footer-link" href="#" title="Team">Team</a>
+              <a class="footer-link" href="#" title="IEC">IEC</a>
+              <a class="footer-link" href="#" title="Careers">Careers</a>
+              <a class="footer-link" href="#" title="Contact">Contact</a>
+            </div>
+          </div>
+        </div>
+      </footer>
 
       <nav class="bottom-nav">
         <a class="bottom-link" data-page="dashboard" href="app.html">Home</a>
         <a class="bottom-link" data-page="review" href="review.html">Review</a>
         <a class="bottom-link" data-page="history" href="history.html">History</a>
         <a class="bottom-link" data-page="insights" href="insights.html">Insights</a>
+        <a class="bottom-link" data-page="team" href="team.html">Team</a>
       </nav>
     </div>
 

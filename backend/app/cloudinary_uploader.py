@@ -9,6 +9,7 @@ from .config import (
     CLOUDINARY_API_KEY,
     CLOUDINARY_API_SECRET,
     CLOUDINARY_CLOUD_NAME,
+    CLOUDINARY_ENABLED,
     CLOUDINARY_FOLDER,
     CLOUDINARY_TTL_DAYS,
 )
@@ -17,6 +18,8 @@ _configured = False
 
 
 def _is_configured() -> bool:
+    if not CLOUDINARY_ENABLED:
+        return False
     return bool(CLOUDINARY_CLOUD_NAME and CLOUDINARY_API_KEY and CLOUDINARY_API_SECRET)
 
 

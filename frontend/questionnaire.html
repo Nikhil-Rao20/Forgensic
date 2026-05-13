@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Forgensic Questionnaire</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="questionnaire">
+    <div class="questionnaire">
+      <div class="questionnaire-card">
+        <header class="hero-row">
+          <div class="brand brand-logos" aria-label="Forgensic home">
+            <div class="logo-row" aria-hidden="true">
+              <img class="logo-img logo-tanuh" src="logos/tanuh_logo.png" alt="" />
+              <img class="logo-img logo-moe" src="logos/MoE_Logo.svg" alt="" />
+              <img class="logo-img logo-iisc" src="logos/IISc_Logo.png" alt="" />
+            </div>
+            <div class="brand-text">
+              <div class="brand-name" id="brand-name">Forgensic</div>
+              <div class="brand-sub" id="brand-sub">Forgery meets forensic clarity</div>
+            </div>
+          </div>
+          <span class="badge ghost">Participant intake</span>
+        </header>
+
+        <section>
+          <div class="kicker">Questionnaire</div>
+          <h1>Document Integrity Research Intake</h1>
+          <p class="lead">Complete this short questionnaire to access the Forgensic console. Your answers help us improve model quality, safety, and deployment readiness.</p>
+        </section>
+
+        <section class="questionnaire-grid">
+          <div class="questionnaire-section">
+            <h3>1) Purpose</h3>
+            <p>We collect non-identifying operational details to understand how document forgery detection is used across industries and regions. This helps us prioritize model improvements and reporting.</p>
+            <h3>2) What You Will Do</h3>
+            <p>Answer a short set of questions about your organization and document types. This takes about 2-3 minutes.</p>
+            <h3>3) Data & Privacy</h3>
+            <p>No personal identifiers are required. Do not upload sensitive personal data in the questionnaire. Responses are stored locally in your browser unless you choose to submit them to your organization.</p>
+            <h3>4) Research-Only Notice</h3>
+            <p>This tool provides decision support and does not replace human review. All outputs require verification by a qualified reviewer.</p>
+          </div>
+
+          <form class="questionnaire-form" id="questionnaire-form">
+            <div class="form-field">
+              <label for="org-type">Organization type</label>
+              <select id="org-type" name="org_type" data-required>
+                <option value="">Select one</option>
+                <option value="financial">Financial services / Banking</option>
+                <option value="government">Government / Public sector</option>
+                <option value="education">Education / Admissions</option>
+                <option value="healthcare">Healthcare / Insurance</option>
+                <option value="enterprise">Enterprise / Corporate security</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="role">Your role</label>
+              <input id="role" name="role" type="text" placeholder="Risk analyst, compliance lead, etc." data-required />
+            </div>
+
+            <div class="form-field">
+              <label for="use-case">Primary use case</label>
+              <input id="use-case" name="use_case" type="text" placeholder="Loan onboarding, KYC, admissions, etc." data-required />
+            </div>
+
+            <div class="form-field">
+              <label for="doc-types">Document types reviewed</label>
+              <input id="doc-types" name="doc_types" type="text" placeholder="Bank statements, IDs, invoices" data-required />
+            </div>
+
+            <div class="form-field">
+              <label for="volume">Approximate monthly volume</label>
+              <select id="volume" name="monthly_volume" data-required>
+                <option value="">Select one</option>
+                <option value="under-100">Under 100</option>
+                <option value="100-500">100 - 500</option>
+                <option value="500-2000">500 - 2,000</option>
+                <option value="2000-plus">2,000+</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="region">Region</label>
+              <input id="region" name="region" type="text" placeholder="India, APAC, Global" data-required />
+            </div>
+
+            <div class="form-field">
+              <label for="notes">Additional notes (optional)</label>
+              <textarea id="notes" name="notes" placeholder="Any operational constraints or expectations"></textarea>
+            </div>
+
+            <label class="consent-row">
+              <input type="checkbox" id="consent-check" />
+              <span>I confirm that I am authorized to submit documents for analysis and I understand that this system provides decision support, not a final forensic determination.</span>
+            </label>
+
+            <div class="questionnaire-actions">
+              <button class="btn btn-primary" id="questionnaire-submit" type="submit" disabled>Accept & Continue</button>
+              <a class="btn btn-ghost" href="index.html">Back to landing</a>
+            </div>
+
+            <div class="card-meta" id="questionnaire-status"></div>
+          </form>
+        </section>
+      </div>
+    </div>
+
+    <script type="module" src="config.js"></script>
+    <script type="module" src="questionnaire.js"></script>
+  </body>
+</html>

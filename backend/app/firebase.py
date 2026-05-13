@@ -1,12 +1,13 @@
 import json
 import os
+from pathlib import Path
 from typing import Optional
 
 import firebase_admin
 from firebase_admin import auth as fb_auth
 from firebase_admin import credentials, firestore, storage
 
-from .config import FIREBASE_CREDENTIALS, FIREBASE_STORAGE_BUCKET
+from .config import FIREBASE_CREDENTIALS, FIREBASE_CREDENTIALS_PATH, FIREBASE_STORAGE_BUCKET
 
 _firebase_app = None
 
@@ -20,8 +21,14 @@ def init_firebase() -> Optional[firebase_admin.App]:
     if FIREBASE_CREDENTIALS:
         cred_dict = json.loads(FIREBASE_CREDENTIALS)
         cred = credentials.Certificate(cred_dict)
+    elif FIREBASE_CREDENTIALS_PATH:
+        cred = credentials.Certificate(FIREBASE_CREDENTIALS_PATH)
     elif os.getenv("GOOGLE_APPLICATION_CREDENTIALS"):
         cred = credentials.ApplicationDefault()
+    else:
+        local_path = Path(__file__).resolve().parents[2] / "forgensic-e3fb6-firebase-adminsdk-fbsvc-d4e2b99c36.json"
+        if local_path.exists():
+            cred = credentials.Certificate(str(local_path))
 
     if cred is None:
         return None
