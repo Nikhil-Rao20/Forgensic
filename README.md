@@ -10,6 +10,13 @@
 
 ---
 
+<!-- Side-by-side images from assets folder -->
+<div style="display:flex;gap:10px;align-items:flex-start;">
+  <img src="assets/img2.png" alt="Image 1" style="width:49%;height:auto;" />
+  <img src="assets/img1.png" alt="Image 2" style="width:49%;height:auto;" />
+</div>
+
+
 This pipeline is a **completely classical computer vision–based solution**, where no models or other heavy components are required. Just using traditional, pre-defined libraries, our solution is capable enough to detect document forgery across all 9 tampering categories.
 
 **Why did we choose this classical CV approach over the big guns, CLIP, ViT, ManTra-Net, MVSS-Net, CAT-Net, or DTD?**
